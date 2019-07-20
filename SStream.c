@@ -30,7 +30,7 @@ void SStream_Init(SStream *ss)
 
 void SStream_concat0(SStream *ss, const char *s)
 {
-#ifndef CAPSTONE_DIET
+#if !defined(CAPSTONE_DIET) && !defined(CAPSTONE_NO_STRING)
 	unsigned int len = (unsigned int) strlen(s);
 
 	memcpy(ss->buffer + ss->index, s, len);
@@ -41,7 +41,7 @@ void SStream_concat0(SStream *ss, const char *s)
 
 void SStream_concat1(SStream *ss, const char c)
 {
-#ifndef CAPSTONE_DIET
+#if !defined(CAPSTONE_DIET) && !defined(CAPSTONE_NO_STRING)
 	ss->buffer[ss->index] = c;
 	ss->index++;
 	ss->buffer[ss->index] = '\0';
@@ -50,7 +50,7 @@ void SStream_concat1(SStream *ss, const char c)
 
 void SStream_concat(SStream *ss, const char *fmt, ...)
 {
-#ifndef CAPSTONE_DIET
+#if !defined(CAPSTONE_DIET) && !defined(CAPSTONE_NO_STRING)
 	va_list ap;
 	int ret;
 
