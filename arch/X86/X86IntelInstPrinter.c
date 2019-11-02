@@ -442,7 +442,6 @@ static void get_op_access(cs_struct *h, unsigned int id, uint8_t *access, uint64
 		else
 			access[i] = 0;
 	}
-
 	// mark the end of array
 	access[i] = 0;
 #endif
@@ -951,6 +950,7 @@ static void printMemReference(MCInst *MI, unsigned Op, SStream *O)
 		MI->flat_insn->detail->x86.operands[MI->flat_insn->detail->x86.op_count].mem.disp = 0;
 
 #ifndef CAPSTONE_DIET
+        access[MI->flat_insn->detail->x86.op_count] = 0;
 		get_op_access(MI->csh, MCInst_getOpcode(MI), access, &MI->flat_insn->detail->x86.eflags);
 		MI->flat_insn->detail->x86.operands[MI->flat_insn->detail->x86.op_count].access = access[MI->flat_insn->detail->x86.op_count];
 #endif
